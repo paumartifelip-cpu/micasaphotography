@@ -48,15 +48,6 @@
       background-size:200px;
     }
 
-    /* CURSOR */
-    .cur,.cur-r { display: none; }
-    @media (pointer:fine) {
-      body { cursor: none; }
-      .cur,.cur-r { display: block; position:fixed; border-radius:50%; pointer-events:none; z-index:10000; top:0; left:0; transform:translate(-50%,-50%); }
-    }
-    .cur   { width:8px; height:8px; background:var(--gold); transition:transform .15s; }
-    .cur-r { width:34px; height:34px; border:1px solid rgba(212,150,58,.4); transition:transform .35s cubic-bezier(.23,1,.32,1); }
-    body.hov .cur { transform:translate(-50%,-50%) scale(3); }
 
     /* PROGRESS */
     #bar { position:fixed; top:0; left:0; height:2px; background:var(--gold); z-index:9998; width:0; }
@@ -316,8 +307,7 @@
 </head>
 <body>
 
-<div class="cur"   id="cur"></div>
-<div class="cur-r" id="curR"></div>
+
 <div id="bar"></div>
 
 <!-- NAV -->
@@ -746,18 +736,6 @@
     }
   });
 
-  // Cursor
-  const cur = document.getElementById('cur'), curR = document.getElementById('curR');
-  if (window.matchMedia('(pointer:fine)').matches) {
-    document.addEventListener('mousemove', e => {
-      gsap.to(cur,  { x:e.clientX, y:e.clientY, duration:.06 });
-      gsap.to(curR, { x:e.clientX, y:e.clientY, duration:.34 });
-    });
-    document.querySelectorAll('a,button,.card,.tag,.pcard').forEach(el => {
-      el.addEventListener('mouseenter', () => document.body.classList.add('hov'));
-      el.addEventListener('mouseleave', () => document.body.classList.remove('hov'));
-    });
-  }
 
   // Progress bar
   window.addEventListener('scroll', () => {
