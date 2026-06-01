@@ -1,0 +1,13 @@
+# Sistema Operativo
+.DS_Store
+Thumbs.db
+
+# Archivos temporales de herramientas
+.claude/
+
+# Excluir archivos multimedia pesados (GitHub limita a 100MB)
+img/IMG_9771.MOV
+*.mov
+*.MOV
+*.mp4
+*.avi

@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MICASA Photography — Fotografía Profesional</title>
+  <meta name="description" content="Estudio de fotografía profesional en México. Especializados en fotografía corporativa, retratos de equipo, branding, eventos, producto y bienes raíces. Capturamos la esencia de tu marca.">
+
+  <!-- Favicon Premium -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' font-family='serif' fill='%23d4963a'%3EM%3C/text%3E%3C/svg%3E">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://paumartifelip-cpu.github.io/micasaphotography/">
+  <meta property="og:title" content="MICASA Photography — Fotografía Profesional">
+  <meta property="og:description" content="Estudio de fotografía profesional en México. Retratos corporativos, branding, eventos, producto y bienes raíces.">
+  <meta property="og:image" content="https://paumartifelip-cpu.github.io/micasaphotography/img/imagepremium15.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="MICASA Photography — Fotografía Profesional">
+  <meta property="twitter:description" content="Estudio de fotografía profesional en México. Retratos corporativos, branding, eventos, producto y bienes raíces.">
+  <meta property="twitter:image" content="https://paumartifelip-cpu.github.io/micasaphotography/img/imagepremium15.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:  #0c0c22; --navy2: #131330; --navy3: #1a1a40;
+      --light: #f5f0e8; --light2: #ede8df;
+      --text:  #f2eee8; --textd: #18182e;
+      --muted: #7a7596; --mutedd: #6b6878;
+      --gold:  #d4963a; --goldg: rgba(212,150,58,.13);
+      --bord:  rgba(255,255,255,.08); --bordd: rgba(0,0,0,.1);
+      --fd: 'Cormorant Garamond', serif;
+      --fb: 'DM Sans', sans-serif;
+      --r: 14px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--navy); color: var(--text); font-family: var(--fb); font-weight: 300; overflow-x: hidden; }
+    body::after {
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+      background-size:200px;
+    }
+
+    /* CURSOR */
+    .cur,.cur-r { display: none; }
+    @media (pointer:fine) {
+      body { cursor: none; }
+      .cur,.cur-r { display: block; position:fixed; border-radius:50%; pointer-events:none; z-index:10000; top:0; left:0; transform:translate(-50%,-50%); }
+    }
+    .cur   { width:8px; height:8px; background:var(--gold); transition:transform .15s; }
+    .cur-r { width:34px; height:34px; border:1px solid rgba(212,150,58,.4); transition:transform .35s cubic-bezier(.23,1,.32,1); }
+    body.hov .cur { transform:translate(-50%,-50%) scale(3); }
+
+    /* PROGRESS */
+    #bar { position:fixed; top:0; left:0; height:2px; background:var(--gold); z-index:9998; width:0; }
+
+    /* NAV */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:500;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:1.4rem 5vw;
+      border-bottom:1px solid transparent;
+      transition:background .4s, backdrop-filter .4s, border-color .4s;
+    }
+    nav.s { background:rgba(12,12,34,.9); backdrop-filter:blur(20px); border-color:var(--bord); }
+    .logo { font-family:var(--fd); font-size:1.05rem; letter-spacing:.35em; text-transform:uppercase; text-decoration:none; color:var(--text); }
+    .logo span { color:var(--gold); }
+    .nav-links { display:flex; gap:2.5rem; list-style:none; }
+    .nav-links a { font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-wa { font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; padding:.55rem 1.4rem; border:1px solid var(--gold); color:var(--gold); text-decoration:none; border-radius:2px; transition:all .25s; }
+    .nav-wa:hover { background:var(--gold); color:var(--navy); }
+    @media(max-width:768px){ .nav-links{display:none;} }
+
+    /* HERO */
+    .hero {
+      height:100vh; min-height:600px; position:relative;
+      overflow:hidden; display:flex; align-items:center;
+    }
+    .hero::before {
+      content:''; position:absolute; inset:0;
+      background:
+        repeating-radial-gradient(ellipse 130% 90% at 18% 58%, transparent 0, transparent 70px, rgba(255,255,255,.022) 71px, transparent 72px),
+        radial-gradient(ellipse 75% 85% at 15% 55%, #1e1050 0%, transparent 62%),
+        linear-gradient(155deg, #0d0d24 30%, #140e32 100%);
+    }
+    .hero-left {
+      position:relative; z-index:2;
+      width:48%; padding:0 5vw;
+    }
+    @media(max-width:768px){ .hero-left{width:100%;} }
+
+    /* photo grid */
+    .hero-photos {
+      position:absolute; right:0; top:0; bottom:0;
+      width:54%; display:flex; gap:12px;
+      overflow:hidden;
+      mask-image:linear-gradient(to left, black 55%, transparent 100%);
+      -webkit-mask-image:linear-gradient(to left, black 55%, transparent 100%);
+    }
+    @media(max-width:768px){ .hero-photos{display:none;} }
+
+    .pcol { flex:1; display:flex; flex-direction:column; gap:12px; }
+    .pcol:first-child { margin-top:-80px; }
+    .pcol:last-child  { margin-top: 80px; }
+
+    .pcard {
+      border-radius:var(--r); overflow:hidden; flex-shrink:0;
+      position:relative; background:var(--g, #222);
+      transition:transform .35s ease;
+    }
+    .pcard img {
+      width:100%; height:100%; object-fit:cover;
+      display:block; transition:transform .5s ease;
+    }
+    .pcard:hover img { transform:scale(1.04); }
+    .pcard::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg,rgba(255,255,255,.06) 0%,transparent 50%,rgba(0,0,0,.15) 100%);
+      pointer-events:none;
+    }
+    .pcard:hover { transform:scale(1.02); }
+    .pcard-ov {
+      position:absolute; bottom:0; left:0; right:0;
+      padding:.8rem 1rem;
+      background:linear-gradient(to top, rgba(0,0,0,.7), transparent);
+    }
+    .pcard-lb { font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.9); }
+
+    /* hero text */
+    .eyebrow { font-size:.65rem; letter-spacing:.42em; text-transform:uppercase; color:var(--gold); margin-bottom:1.8rem; opacity:0; }
+    .hh { font-family:var(--fd); font-weight:300; line-height:.88; font-size:clamp(4.5rem,10vw,10rem); overflow:hidden; }
+    .hrow { display:block; overflow:hidden; }
+    .hinn { display:block; transform:translateY(105%); will-change:transform; }
+    .htag { font-size:clamp(.88rem,1.7vw,1.1rem); color:var(--muted); line-height:1.65; margin:1.4rem 0 2.2rem; opacity:0; max-width:380px; }
+    .hbtns { display:flex; align-items:center; gap:1.8rem; opacity:0; transform:translateY(16px); flex-wrap:wrap; }
+
+    .pill {
+      display:inline-flex; align-items:center; gap:.65rem;
+      padding:.8rem 1.7rem; background:var(--gold); color:var(--navy);
+      font-size:.73rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase;
+      text-decoration:none; border-radius:50px;
+      transition:filter .25s, transform .2s;
+    }
+    .pill:hover { filter:brightness(1.1); transform:translateY(-2px); }
+    .pill svg { width:13px; height:13px; }
+    .ghost { font-size:.73rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); text-decoration:none; display:flex; align-items:center; gap:.5rem; transition:color .2s; }
+    .ghost:hover { color:var(--text); }
+    .ghost svg { width:15px; height:15px; transition:transform .2s; }
+    .ghost:hover svg { transform:translateX(4px); }
+
+    .scroll-hint { position:absolute; bottom:2rem; left:5vw; z-index:2; display:flex; align-items:center; gap:.75rem; opacity:0; }
+    .scroll-hint span { font-size:.6rem; letter-spacing:.28em; text-transform:uppercase; color:var(--muted); }
+    .sline { width:44px; height:1px; background:linear-gradient(to right,var(--gold),transparent); animation:sl 2.2s ease-in-out infinite; }
+    @keyframes sl { 0%,100%{opacity:1;transform:scaleX(1)} 50%{opacity:.25;transform:scaleX(.3)} }
+
+    /* MARQUEE */
+    .mq { border-top:1px solid var(--bord); border-bottom:1px solid var(--bord); overflow:hidden; padding:1.25rem 0; }
+    .mq-tr { display:flex; gap:3rem; white-space:nowrap; animation:mq 24s linear infinite; }
+    .mq-it { font-family:var(--fd); font-size:clamp(1rem,2vw,1.6rem); font-style:italic; color:var(--muted); flex-shrink:0; }
+    .mq-it b { color:var(--text); font-style:normal; font-weight:300; }
+    .sep { color:var(--gold); margin:0 .25rem; }
+    @keyframes mq { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    /* SECTIONS */
+    .sec { padding:clamp(5rem,10vw,8rem) 5vw; }
+    .sec-lbl { font-size:.62rem; letter-spacing:.38em; text-transform:uppercase; color:var(--gold); margin-bottom:.8rem; }
+    .sec-ttl { font-family:var(--fd); font-size:clamp(2.4rem,5vw,4.5rem); font-weight:300; line-height:1.06; }
+    .sec-ttl em { font-style:italic; color:var(--gold); }
+
+    /* PACKAGES */
+    .pkg-intro { max-width:560px; margin-bottom:clamp(2.5rem,5vw,4rem); }
+    .pkg-intro p { color:var(--muted); line-height:1.75; font-size:.92rem; margin-top:.9rem; }
+    .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5px; background:var(--bord); }
+    @media(max-width:900px){ .grid3{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:540px){ .grid3{grid-template-columns:1fr;} }
+
+    .card {
+      background:var(--navy2); padding:clamp(1.8rem,2.5vw,2.5rem);
+      position:relative; overflow:hidden; transition:background .3s;
+    }
+    .card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:3px;
+      background:var(--accent, linear-gradient(90deg,var(--gold),transparent));
+      transform:scaleX(0); transform-origin:left; transition:transform .4s;
+    }
+    .card::after { content:''; position:absolute; inset:0; background:var(--goldg); opacity:0; transition:opacity .4s; }
+    .card:hover { background:var(--navy3); }
+    .card:hover::before { transform:scaleX(1); }
+    .card:hover::after  { opacity:1; }
+    .card-cat  { font-size:.58rem; letter-spacing:.32em; text-transform:uppercase; color:var(--gold); margin-bottom:1.4rem; opacity:.85; }
+    .card-pr   { font-family:var(--fd); font-size:clamp(2.4rem,4vw,3.6rem); font-weight:300; line-height:1; }
+    .card-sub  { font-size:.7rem; color:var(--muted); margin:.25rem 0 1.3rem; }
+    .card-name { font-family:var(--fd); font-size:1.2rem; font-weight:400; margin-bottom:.4rem; }
+    .card-desc { font-size:.78rem; color:var(--muted); line-height:1.55; margin-bottom:1.5rem; }
+    .card-div  { height:1px; background:var(--bord); margin-bottom:1.3rem; }
+    .card-list { list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .card-list li { font-size:.78rem; color:var(--muted); display:flex; align-items:flex-start; gap:.6rem; line-height:1.45; }
+    .card-list li::before { content:'—'; color:var(--gold); flex-shrink:0; font-size:.68rem; margin-top:.12rem; }
+    .badge { position:absolute; top:1.6rem; right:1.6rem; font-size:.58rem; letter-spacing:.14em; text-transform:uppercase; padding:.28rem .7rem; border:1px solid var(--gold); color:var(--gold); border-radius:2px; }
+
+    /* PROCESS — light section */
+    .proc { background:var(--light); color:var(--textd); }
+    .proc .sec-lbl { color:#8a7a5a; }
+    .proc .sec-ttl em { color:#c8892a; }
+    .proc-head { display:grid; grid-template-columns:1fr 1fr; gap:4vw; align-items:start; margin-bottom:clamp(3rem,6vw,5rem); }
+    @media(max-width:640px){ .proc-head{grid-template-columns:1fr;} }
+    .proc-head p { color:var(--mutedd); font-size:.95rem; line-height:1.75; padding-top:.5rem; }
+    .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:1.5px; background:var(--bordd); }
+    @media(max-width:800px){ .steps{grid-template-columns:repeat(2,1fr);} }
+    .step { background:var(--light); padding:2rem 1.8rem; }
+    .step-icon { width:44px; height:44px; border:1px solid rgba(0,0,0,.13); border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:1.3rem; }
+    .step-icon svg { width:19px; height:19px; stroke:var(--textd); fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+    .step-n  { font-size:.58rem; letter-spacing:.2em; color:#c8892a; text-transform:uppercase; margin-bottom:.4rem; }
+    .step-nm { font-family:var(--fd); font-size:1.2rem; font-weight:400; color:var(--textd); margin-bottom:.4rem; }
+    .step-d  { font-size:.78rem; color:var(--mutedd); line-height:1.6; }
+
+    /* EXTRAS */
+    .ext-sec { background:var(--navy2); border-top:1px solid var(--bord); }
+    .ext-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.5px; margin-top:3rem; background:var(--bord); }
+    @media(max-width:640px){ .ext-grid{grid-template-columns:1fr;} }
+    .extra { background:var(--navy); padding:1.8rem 2rem; display:flex; justify-content:space-between; align-items:center; gap:1rem; transition:background .25s; }
+    .extra:hover { background:var(--navy3); }
+    .extra-nm { font-family:var(--fd); font-size:1.1rem; font-weight:400; margin-bottom:.25rem; }
+    .extra-d  { font-size:.75rem; color:var(--muted); }
+    .extra-pr { font-family:var(--fd); font-size:1.7rem; font-weight:300; color:var(--gold); white-space:nowrap; }
+
+    /* SPECIAL */
+    .special { text-align:center; background:linear-gradient(180deg,var(--navy) 0%,#150c2a 100%); border-top:1px solid var(--bord); }
+    .tags { display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; margin:2rem 0 2.8rem; }
+    .tag { font-family:var(--fd); font-size:1.1rem; font-style:italic; color:var(--muted); padding:.5rem 1.4rem; border:1px solid var(--bord); border-radius:50px; transition:all .25s; cursor:default; }
+    .tag:hover { color:var(--gold); border-color:var(--gold); }
+
+    /* CTA */
+    .cta { display:flex; flex-direction:column; align-items:center; text-align:center; border-top:1px solid var(--bord); }
+    .cta .sec-ttl { font-size:clamp(3rem,8vw,7rem); }
+
+    /* FOOTER */
+    footer { padding:1.8rem 5vw; border-top:1px solid var(--bord); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; }
+    footer p { font-size:.68rem; letter-spacing:.1em; color:var(--muted); }
+    .flogo { font-family:var(--fd); font-size:.95rem; letter-spacing:.32em; text-transform:uppercase; }
+    .flogo span { color:var(--gold); }
+
+    .rev { opacity:0; transform:translateY(44px); }
+
+    /* GALLERY */
+    .gf-tabs { display:flex; gap:.6rem; flex-wrap:wrap; margin:2rem 0 2.5rem; }
+    .gf-btn {
+      font-family:var(--fb); font-size:.7rem; font-weight:400;
+      letter-spacing:.15em; text-transform:uppercase;
+      padding:.5rem 1.3rem; border:1px solid var(--bord);
+      background:transparent; color:var(--muted); cursor:pointer;
+      border-radius:50px; transition:all .22s;
+    }
+    .gf-btn:hover { color:var(--text); border-color:rgba(255,255,255,.2); }
+    .gf-btn.active { background:var(--gold); color:var(--navy); border-color:var(--gold); }
+
+    .gal-grid {
+      columns:4; gap:10px;
+      column-gap:10px;
+    }
+    @media(max-width:1100px){ .gal-grid{columns:3;} }
+    @media(max-width:700px) { .gal-grid{columns:2;} }
+    @media(max-width:440px) { .gal-grid{columns:1;} }
+
+    .gi {
+      break-inside:avoid;
+      margin-bottom:10px;
+      border-radius:10px;
+      overflow:hidden;
+      cursor:pointer;
+      position:relative;
+    }
+    .gi img {
+      width:100%; display:block;
+      transition:transform .45s ease, filter .3s;
+      filter:brightness(.96);
+    }
+    .gi:hover img { transform:scale(1.04); filter:brightness(1.05); }
+    .gi.hide { display:none; }
+
+    /* LIGHTBOX */
+    .lb {
+      position:fixed; inset:0; z-index:2000;
+      background:rgba(0,0,0,.92);
+      display:flex; align-items:center; justify-content:center;
+      opacity:0; pointer-events:none; transition:opacity .3s;
+    }
+    .lb.open { opacity:1; pointer-events:all; }
+    .lb img { max-width:90vw; max-height:90vh; border-radius:6px; object-fit:contain; }
+    .lb-close {
+      position:absolute; top:1.5rem; right:1.5rem;
+      font-size:2rem; color:rgba(255,255,255,.7); cursor:pointer;
+      background:none; border:none; line-height:1;
+      transition:color .2s;
+    }
+    .lb-close:hover { color:#fff; }
+    .lb-prev,.lb-next {
+      position:absolute; top:50%; transform:translateY(-50%);
+      font-size:2rem; color:rgba(255,255,255,.6); cursor:pointer;
+      background:none; border:none; padding:.5rem 1rem;
+      transition:color .2s;
+    }
+    .lb-prev:hover,.lb-next:hover { color:#fff; }
+    .lb-prev { left:1rem; }
+    .lb-next { right:1rem; }
+  </style>
+</head>
+<body>
+
+<div class="cur"   id="cur"></div>
+<div class="cur-r" id="curR"></div>
+<div id="bar"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="logo">MICA<span>SA</span></a>
+  <ul class="nav-links">
+    <li><a href="#portafolio">Portafolio</a></li>
+    <li><a href="#paquetes">Paquetes</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#extras">Extras</a></li>
+  </ul>
+  <a href="https://wa.me/523339686153" target="_blank" rel="noopener" class="nav-wa">Cotizar</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="eyebrow">Fotografía Profesional · México</p>
+    <h1 class="hh">
+      <span class="hrow"><span class="hinn">MICASA</span></span>
+      <span class="hrow"><span class="hinn" style="color:var(--gold);font-style:italic">Photo.</span></span>
+    </h1>
+    <p class="htag">Capturamos lo que importa — corporativo, eventos, producto, bienes raíces y mucho más.</p>
+    <div class="hbtns">
+      <a href="#paquetes" class="pill">
+        Ver Paquetes
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="https://wa.me/523339686153" target="_blank" rel="noopener" class="ghost">
+        Cotizar ahora
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-photos" id="hp">
+    <div class="pcol" id="pc1">
+      <div class="pcard" style="height:240px">
+        <img src="img/imagepremium15.png" alt="Fotografía de producto" loading="eager">
+        <div class="pcard-ov"><span class="pcard-lb">Producto</span></div>
+      </div>
+      <div class="pcard" style="height:170px">
+        <img src="img/IMG_4942-77.jpg" alt="Eventos especiales" loading="eager">
+        <div class="pcard-ov"><span class="pcard-lb">Eventos</span></div>
+      </div>
+      <div class="pcard" style="height:205px">
+        <img src="img/IMG_2760-177.JPG" alt="Boda" loading="eager">
+        <div class="pcard-ov"><span class="pcard-lb">Bodas</span></div>
+      </div>
+    </div>
+    <div class="pcol" id="pc2">
+      <div class="pcard" style="height:210px">
+        <img src="img/IMG_0946-53.jpg" alt="Fotografía de producto" loading="eager">
+        <div class="pcard-ov"><span class="pcard-lb">Producto</span></div>
+      </div>
+      <div class="pcard" style="height:175px">
+        <img src="img/IMG_4682-5.jpg" alt="Evento" loading="eager">
+        <div class="pcard-ov"><span class="pcard-lb">Eventos</span></div>
+      </div>
+      <div class="pcard" style="height:210px">
+        <img src="img/IMG_6989-257.jpg" alt="Corporativo" loading="eager">
+        <div class="pcard-ov"><span class="pcard-lb">Corporativo</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="sline"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq">
+  <div class="mq-tr">
+    <span class="mq-it"><b>Corporativo</b><span class="sep">×</span>Individual</span>
+    <span class="mq-it"><b>Equipos</b><span class="sep">×</span>Locación</span>
+    <span class="mq-it"><b>Eventos</b><span class="sep">×</span>Sociales</span>
+    <span class="mq-it"><b>Producto</b><span class="sep">×</span>E-commerce</span>
+    <span class="mq-it"><b>Bienes Raíces</b><span class="sep">×</span>Airbnb</span>
+    <span class="mq-it"><b>Branding</b><span class="sep">×</span>Contenido</span>
+    <span class="mq-it"><b>Bodas</b><span class="sep">×</span>XV Años</span>
+    <span class="mq-it"><b>Corporativo</b><span class="sep">×</span>Individual</span>
+    <span class="mq-it"><b>Equipos</b><span class="sep">×</span>Locación</span>
+    <span class="mq-it"><b>Eventos</b><span class="sep">×</span>Sociales</span>
+    <span class="mq-it"><b>Producto</b><span class="sep">×</span>E-commerce</span>
+    <span class="mq-it"><b>Bienes Raíces</b><span class="sep">×</span>Airbnb</span>
+    <span class="mq-it"><b>Branding</b><span class="sep">×</span>Contenido</span>
+    <span class="mq-it"><b>Bodas</b><span class="sep">×</span>XV Años</span>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<section class="sec" id="portafolio" style="padding-bottom:0">
+  <p class="sec-lbl rev">Nuestro Trabajo</p>
+  <h2 class="sec-ttl rev">Portafolio</h2>
+
+  <div class="gf-tabs rev">
+    <button class="gf-btn active" data-filter="all">Todos</button>
+    <button class="gf-btn" data-filter="corporativo">Corporativo</button>
+    <button class="gf-btn" data-filter="producto">Producto</button>
+    <button class="gf-btn" data-filter="eventos">Eventos</button>
+  </div>
+
+  <div class="gal-grid" id="galGrid">
+    <!-- PRODUCTO -->
+    <div class="gi" data-cat="producto"><img src="img/imagepremium15.png" alt="Tequila producto" loading="lazy"></div>
+    <div class="gi" data-cat="producto"><img src="img/IMG_6721-306.jpg" alt="Tequila reposado" loading="lazy"></div>
+    <div class="gi" data-cat="producto"><img src="img/IMG_6943-359.jpg" alt="Tequila blanco agave" loading="lazy"></div>
+    <div class="gi" data-cat="producto"><img src="img/IMG_8526-409.jpg" alt="Tequila blanco" loading="lazy"></div>
+    <div class="gi" data-cat="producto"><img src="img/IMG_7413-25.jpg" alt="Embotellado Satoma" loading="lazy"></div>
+    <div class="gi" data-cat="producto"><img src="img/IMG_5709-45.jpg" alt="Fábrica tequila" loading="lazy"></div>
+    <div class="gi" data-cat="producto"><img src="img/IMG_0946-53.jpg" alt="Jabón Eunomia agua" loading="lazy"></div>
+    <div class="gi" data-cat="producto"><img src="img/IMG_2039-12.jpg" alt="Cremas Eunomia" loading="lazy"></div>
+    <div class="gi" data-cat="producto"><img src="img/IMG_2371-30.jpg" alt="Jabón Eunomia negro" loading="lazy"></div>
+    <div class="gi" data-cat="producto"><img src="img/IMG_0301-12.jpg" alt="Joyero cuero" loading="lazy"></div>
+    <div class="gi" data-cat="producto"><img src="img/IMG_4083-7.jpg" alt="Joyería acrílico" loading="lazy"></div>
+    <div class="gi" data-cat="producto"><img src="img/IMG_4453-66.jpg" alt="Arete hoja" loading="lazy"></div>
+    <div class="gi" data-cat="producto"><img src="img/IMG_8339-4.jpg" alt="Frambuesas producto" loading="lazy"></div>
+    <!-- CORPORATIVO -->
+    <div class="gi" data-cat="corporativo"><img src="img/IMG_4447-28.jpg" alt="Doctora retrato" loading="lazy"></div>
+    <div class="gi" data-cat="corporativo"><img src="img/IMG_4645-115.jpg" alt="Doctora guantes" loading="lazy"></div>
+    <div class="gi" data-cat="corporativo"><img src="img/IMG_4702-140.jpg" alt="Procedimiento estético" loading="lazy"></div>
+    <div class="gi" data-cat="corporativo"><img src="img/IMG_6989-257.jpg" alt="Doctor retrato" loading="lazy"></div>
+    <div class="gi" data-cat="corporativo"><img src="img/IMG_7109-315.jpg" alt="Doctor sonriendo" loading="lazy"></div>
+    <div class="gi" data-cat="corporativo"><img src="img/IMG_7813-9.jpg" alt="Retrato ejecutiva" loading="lazy"></div>
+    <div class="gi" data-cat="corporativo"><img src="img/IMG_7997-78.jpg" alt="Retrato profesional" loading="lazy"></div>
+    <div class="gi" data-cat="corporativo"><img src="img/IMG_9268-91.jpg" alt="Abogada despacho" loading="lazy"></div>
+    <div class="gi" data-cat="corporativo"><img src="img/IMG_9478-39.jpg" alt="Abogada retrato" loading="lazy"></div>
+    <div class="gi" data-cat="corporativo"><img src="img/IMG_9502-48.jpg" alt="Abogada pensativa" loading="lazy"></div>
+    <div class="gi" data-cat="corporativo"><img src="img/IMG_8586-245.jpg" alt="Equipo 4 personas" loading="lazy"></div>
+    <div class="gi" data-cat="corporativo"><img src="img/IMG_8621-253.jpg" alt="Equipo grande" loading="lazy"></div>
+    <div class="gi" data-cat="corporativo"><img src="img/IMG_9508-51.jpg" alt="Equipo corporativo" loading="lazy"></div>
+    <div class="gi" data-cat="corporativo"><img src="img/IMG_9683-89.jpg" alt="Equipo mujeres" loading="lazy"></div>
+    <div class="gi" data-cat="corporativo"><img src="img/IMG_6267-11.jpg" alt="Médicos IMSS" loading="lazy"></div>
+    <div class="gi" data-cat="corporativo"><img src="img/IMG_6675-140.jpg" alt="Quirófano" loading="lazy"></div>
+    <!-- EVENTOS -->
+    <div class="gi" data-cat="eventos"><img src="img/IMG_0567-374.jpg" alt="Torneo golf" loading="lazy"></div>
+    <div class="gi" data-cat="eventos"><img src="img/IMG_2760-177.JPG" alt="Primera boda" loading="lazy"></div>
+    <div class="gi" data-cat="eventos"><img src="img/IMG_4682-5.jpg" alt="Montaje boda" loading="lazy"></div>
+    <div class="gi" data-cat="eventos"><img src="img/IMG_4942-77.jpg" alt="XV años luna" loading="lazy"></div>
+    <div class="gi" data-cat="eventos"><img src="img/IMG_7133-194.jpg" alt="Evento corporativo" loading="lazy"></div>
+    <div class="gi" data-cat="eventos"><img src="img/IMG_7774-708.jpg" alt="Cena evento" loading="lazy"></div>
+    <div class="gi" data-cat="eventos"><img src="img/IMG_9623-178.jpg" alt="Gala premiación" loading="lazy"></div>
+    <div class="gi" data-cat="eventos"><img src="img/IMG_9623-76.jpg" alt="Gala grupo" loading="lazy"></div>
+    <div class="gi" data-cat="eventos"><img src="img/IMG_8838-36.jpg" alt="Conferencia" loading="lazy"></div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="sec" id="paquetes">
+  <div class="pkg-intro">
+    <p class="sec-lbl rev">Nuestros Paquetes</p>
+    <h2 class="sec-ttl rev">Fotografía que <em>conecta</em><br>con tu marca</h2>
+    <p class="rev">Imágenes de alta calidad para empresas, equipos y profesionales. Edición profesional y entrega descargable incluidas.</p>
+  </div>
+  <div class="grid3">
+
+    <div class="card" style="--accent:linear-gradient(90deg,#c87838,transparent)">
+      <p class="card-cat">Corporativo</p>
+      <p class="card-pr">$79</p>
+      <p class="card-sub">por sesión</p>
+      <h3 class="card-name">Individual Corporativa</h3>
+      <p class="card-desc">Retratos para LinkedIn, CV, sitio web o redes sociales.</p>
+      <div class="card-div"></div>
+      <ul class="card-list">
+        <li>30–45 min de sesión</li>
+        <li>20–30 fotos editadas de alta calidad</li>
+        <li>Descarga por link</li>
+        <li>En locación de trabajo</li>
+        <li>Asesoría de poses · 1 cambio de ropa</li>
+        <li>Cámara y equipo profesional</li>
+      </ul>
+    </div>
+
+    <div class="card" style="--accent:linear-gradient(90deg,#6b35d4,transparent)">
+      <span class="badge">Popular</span>
+      <p class="card-cat">Corporativo</p>
+      <p class="card-pr">$249</p>
+      <p class="card-sub">equipos 5–15 personas</p>
+      <h3 class="card-name">Equipos en Locación</h3>
+      <p class="card-desc">Retratos individuales y grupales para tu equipo.</p>
+      <div class="card-div"></div>
+      <ul class="card-list">
+        <li>Retratos individuales y grupales</li>
+        <li>60–80 fotos editadas de alta calidad</li>
+        <li>Descarga por link</li>
+        <li>Asesoría de poses</li>
+        <li>Desplazamiento incluido</li>
+        <li>Cámara y equipo profesional</li>
+      </ul>
+    </div>
+
+    <div class="card" style="--accent:linear-gradient(90deg,#0f7a6b,transparent)">
+      <p class="card-cat">Branding</p>
+      <p class="card-pr">$449</p>
+      <p class="card-sub">cobertura completa</p>
+      <h3 class="card-name">Branding Corporativo</h3>
+      <p class="card-desc">Para web empresarial, redes sociales y material publicitario.</p>
+      <div class="card-div"></div>
+      <ul class="card-list">
+        <li>Fotos de instalaciones y procesos</li>
+        <li>Personal individual y grupal</li>
+        <li>200–250 fotos editadas</li>
+        <li>Descarga por link</li>
+        <li>Cámara y equipo profesional</li>
+      </ul>
+    </div>
+
+    <div class="card" style="--accent:linear-gradient(90deg,#e11d8a,transparent)">
+      <p class="card-cat">Eventos</p>
+      <p class="card-pr">$99</p>
+      <p class="card-sub">por hora</p>
+      <h3 class="card-name">Cobertura de Eventos</h3>
+      <p class="card-desc">Corporativos, sociales, lanzamientos. Cada momento capturado.</p>
+      <div class="card-div"></div>
+      <ul class="card-list">
+        <li>60–80 fotos editadas por hora</li>
+        <li>Descarga por link</li>
+        <li>Cámara profesional</li>
+        <li>+ Video resumen 3 min: $249</li>
+      </ul>
+    </div>
+
+    <div class="card" style="--accent:linear-gradient(90deg,#1d4ed8,transparent)">
+      <p class="card-cat">Producto</p>
+      <p class="card-pr">$299</p>
+      <p class="card-sub">por sesión</p>
+      <h3 class="card-name">Fotografía de Producto</h3>
+      <p class="card-desc">Para e-commerce, publicidad y redes sociales.</p>
+      <div class="card-div"></div>
+      <ul class="card-list">
+        <li>50 fotos fondo neutro o locación</li>
+        <li>10 fotos premium para ads y redes</li>
+        <li>Edición de alta calidad</li>
+        <li>Descarga por link</li>
+      </ul>
+    </div>
+
+    <div class="card" style="--accent:linear-gradient(90deg,#92400e,transparent)">
+      <p class="card-cat">Bienes Raíces · Airbnb</p>
+      <p class="card-pr">$120</p>
+      <p class="card-sub">Básico / $279 Premium</p>
+      <h3 class="card-name">Bienes Raíces & Airbnb</h3>
+      <p class="card-desc">Imágenes que venden y atraen huéspedes.</p>
+      <div class="card-div"></div>
+      <ul class="card-list">
+        <li><strong>Básico $120</strong> — 20 fotos editadas</li>
+        <li><strong>Premium $279</strong> — 60 fotos editadas</li>
+        <li>Tomas de planos y detalles</li>
+        <li>Edición profesional · Descarga por link</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESS — light -->
+<section class="sec proc" id="proceso">
+  <div class="proc-head">
+    <div>
+      <p class="sec-lbl rev">Cómo Funciona</p>
+      <h2 class="sec-ttl rev">Un proceso <em>simple</em><br>para ti</h2>
+    </div>
+    <p class="rev">Desde el primer mensaje hasta la entrega de tus fotos, nos encargamos de todo para que tú te enfoques en lo que importa.</p>
+  </div>
+  <div class="steps">
+    <div class="step rev">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <p class="step-n">01</p>
+      <h4 class="step-nm">Cotiza por WhatsApp</h4>
+      <p class="step-d">Escríbenos con tu idea y te respondemos con una propuesta personalizada.</p>
+    </div>
+    <div class="step rev">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <p class="step-n">02</p>
+      <h4 class="step-nm">Agenda la sesión</h4>
+      <p class="step-d">Coordinamos fecha, hora y locación según tu disponibilidad.</p>
+    </div>
+    <div class="step rev">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </div>
+      <p class="step-n">03</p>
+      <h4 class="step-nm">Realizamos la sesión</h4>
+      <p class="step-d">Fotografía profesional con asesoría y equipo de alta calidad.</p>
+    </div>
+    <div class="step rev">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </div>
+      <p class="step-n">04</p>
+      <h4 class="step-nm">Recibe tus fotos</h4>
+      <p class="step-d">Descarga tus imágenes editadas en alta calidad por link privado.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXTRAS -->
+<section class="sec ext-sec" id="extras">
+  <p class="sec-lbl rev">Servicios Adicionales</p>
+  <h2 class="sec-ttl rev">Potencia tu <em>sesión</em></h2>
+  <div class="ext-grid">
+    <div class="extra rev"><div><p class="extra-nm">Video Corporativo</p><p class="extra-d">Instalaciones y personal · 1 minuto</p></div><p class="extra-pr">$179</p></div>
+    <div class="extra rev"><div><p class="extra-nm">Video con Dron</p><p class="extra-d">Full HD o 4K</p></div><p class="extra-pr">$99</p></div>
+    <div class="extra rev"><div><p class="extra-nm">Entrega Express</p><p class="extra-d">Archivos listos en 24 horas</p></div><p class="extra-pr">$50</p></div>
+    <div class="extra rev"><div><p class="extra-nm">Galería Online</p><p class="extra-d">Todos pueden ver y descargar</p></div><p class="extra-pr">$20</p></div>
+    <div class="extra rev"><div><p class="extra-nm">Video Resumen de Evento</p><p class="extra-d">Horizontal o vertical · highlights · 3 min</p></div><p class="extra-pr">$249</p></div>
+  </div>
+</section>
+
+<!-- SPECIAL EVENTS -->
+<section class="sec special">
+  <p class="sec-lbl rev">Eventos Especiales</p>
+  <h2 class="sec-ttl rev" style="font-size:clamp(2.5rem,6vw,5.5rem)">¿Tienes un<br><em>evento especial?</em></h2>
+  <p class="rev" style="color:var(--muted);font-size:.9rem;margin-top:.75rem">Pregunta por nuestros paquetes personalizados para:</p>
+  <div class="tags rev">
+    <span class="tag">Bodas</span>
+    <span class="tag">XV Años</span>
+    <span class="tag">Graduaciones</span>
+  </div>
+  <div class="rev">
+    <a href="https://wa.me/523339686153" target="_blank" rel="noopener" class="pill">
+      Solicitar Cotización
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sec cta">
+  <p class="sec-lbl rev">Hablemos</p>
+  <h2 class="sec-ttl rev" style="font-size:clamp(3rem,8vw,7rem)">Reserva tu <em>sesión</em></h2>
+  <p class="rev" style="color:var(--muted);max-width:380px;line-height:1.75;font-size:.9rem;margin-top:.8rem">¿Listo para imágenes que marcan la diferencia? Escríbenos por WhatsApp y te respondemos al instante.</p>
+  <div style="margin-top:2.5rem" class="rev">
+    <a href="https://wa.me/523339686153" target="_blank" rel="noopener" class="pill" style="font-size:.78rem;padding:.95rem 2.1rem">
+      Escribir por WhatsApp
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="flogo">MICA<span>SA</span> Photography</p>
+  <p>© 2025 MICASA Photography. Todos los derechos reservados.</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb">
+  <button class="lb-close" id="lbClose">×</button>
+  <button class="lb-prev" id="lbPrev">‹</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-next" id="lbNext">›</button>
+</div>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Gallery filter
+  const filterBtns = document.querySelectorAll('.gf-btn');
+  const items = document.querySelectorAll('.gi');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      items.forEach(item => {
+        item.classList.toggle('hide', f !== 'all' && item.dataset.cat !== f);
+      });
+    });
+  });
+
+  // Lightbox
+  const lb = document.getElementById('lb');
+  const lbImg = document.getElementById('lbImg');
+  let lbItems = [], lbIdx = 0;
+
+  function openLb(idx) {
+    lbItems = [...document.querySelectorAll('.gi:not(.hide) img')];
+    lbIdx = idx;
+    lbImg.src = lbItems[lbIdx].src;
+    lbImg.alt = lbItems[lbIdx].alt || '';
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLb() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  items.forEach((item, i) => {
+    item.addEventListener('click', () => {
+      const visible = [...document.querySelectorAll('.gi:not(.hide) img')];
+      const idx = visible.indexOf(item.querySelector('img'));
+      openLb(idx);
+    });
+  });
+
+  document.getElementById('lbClose').addEventListener('click', closeLb);
+  document.getElementById('lbPrev').addEventListener('click', () => {
+    lbIdx = (lbIdx - 1 + lbItems.length) % lbItems.length;
+    lbImg.src = lbItems[lbIdx].src;
+    lbImg.alt = lbItems[lbIdx].alt || '';
+  });
+  document.getElementById('lbNext').addEventListener('click', () => {
+    lbIdx = (lbIdx + 1) % lbItems.length;
+    lbImg.src = lbItems[lbIdx].src;
+    lbImg.alt = lbItems[lbIdx].alt || '';
+  });
+  lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLb();
+    if (e.key === 'ArrowLeft') { 
+      lbIdx = (lbIdx - 1 + lbItems.length) % lbItems.length; 
+      lbImg.src = lbItems[lbIdx].src; 
+      lbImg.alt = lbItems[lbIdx].alt || '';
+    }
+    if (e.key === 'ArrowRight') { 
+      lbIdx = (lbIdx + 1) % lbItems.length; 
+      lbImg.src = lbItems[lbIdx].src; 
+      lbImg.alt = lbItems[lbIdx].alt || '';
+    }
+  });
+
+  // Cursor
+  const cur = document.getElementById('cur'), curR = document.getElementById('curR');
+  if (window.matchMedia('(pointer:fine)').matches) {
+    document.addEventListener('mousemove', e => {
+      gsap.to(cur,  { x:e.clientX, y:e.clientY, duration:.06 });
+      gsap.to(curR, { x:e.clientX, y:e.clientY, duration:.34 });
+    });
+    document.querySelectorAll('a,button,.card,.tag,.pcard').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('hov'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('hov'));
+    });
+  }
+
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    document.getElementById('bar').style.width =
+      (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+  }, { passive:true });
+
+  // Nav sticky
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('s', window.scrollY > 60);
+  }, { passive:true });
+
+  // ── HERO ENTRANCE ──
+  const tl = gsap.timeline({ delay:.2 });
+  tl.to('.eyebrow', { opacity:1, y:0, duration:.8, ease:'power3.out' })
+    .to('.hinn',    { y:'0%', duration:1.1, ease:'power4.out', stagger:.18 }, '-=.5')
+    .to('.htag',    { opacity:1, duration:.7, ease:'power3.out' }, '-=.4')
+    .to('.hbtns',   { opacity:1, y:0, duration:.6, ease:'power3.out' }, '-=.3')
+    .to('.scroll-hint', { opacity:1, duration:.5 }, '-=.15')
+    .from('#hp',    { opacity:0, x:55, duration:1.1, ease:'power3.out' }, .35);
+
+  // Photo cards — independent float
+  gsap.utils.toArray('.pcard').forEach((c, i) => {
+    gsap.to(c, { y: i%2===0 ? -14 : 14, duration:2.8+i*.35, repeat:-1, yoyo:true, ease:'sine.inOut' });
+  });
+
+  // Hero — mouse parallax on photo columns
+  document.querySelector('.hero').addEventListener('mousemove', e => {
+    const xP = (e.clientX/window.innerWidth  - .5)*2;
+    const yP = (e.clientY/window.innerHeight - .5)*2;
+    gsap.to('#pc1', { x:xP*-16, y:yP*-9,  duration:.65, ease:'power2.out' });
+    gsap.to('#pc2', { x:xP* 11, y:yP* 13, duration:.65, ease:'power2.out' });
+  });
+
+  // Hero — scroll parallax
+  gsap.to('.hero-left', { yPercent:24, ease:'none', scrollTrigger:{ trigger:'.hero', scrub:1.2 } });
+  gsap.to('#hp',        { yPercent:14, ease:'none', scrollTrigger:{ trigger:'.hero', scrub:1.6 } });
+
+  // ── SCROLL REVEALS ──
+  gsap.utils.toArray('.rev').forEach(el => {
+    gsap.fromTo(el,
+      { opacity:0, y:46 },
+      { opacity:1, y:0, duration:.85, ease:'power3.out',
+        scrollTrigger:{ trigger:el, start:'top 88%' }
+      }
+    );
+  });
+
+  // Package cards — stagger per column
+  gsap.utils.toArray('.card').forEach((c,i) => {
+    gsap.fromTo(c,
+      { opacity:0, y:62 },
+      { opacity:1, y:0, duration:.8, ease:'power3.out',
+        delay:(i%3)*.1,
+        scrollTrigger:{ trigger:c, start:'top 90%' }
+      }
+    );
+  });
+
+  // Process steps — stagger
+  gsap.utils.toArray('.step').forEach((s,i) => {
+    gsap.fromTo(s,
+      { opacity:0, y:38 },
+      { opacity:1, y:0, duration:.7, ease:'power3.out',
+        delay:i*.12,
+        scrollTrigger:{ trigger:s, start:'top 88%' }
+      }
+    );
+  });
+
+  // Extras — slide from sides
+  gsap.utils.toArray('.extra').forEach((el,i) => {
+    gsap.fromTo(el,
+      { opacity:0, x:i%2===0 ? -30 : 30 },
+      { opacity:1, x:0, duration:.65, ease:'power3.out',
+        scrollTrigger:{ trigger:el, start:'top 88%' }
+      }
+    );
+  });
+</script>
+</body>
+</html>
