@@ -30,7 +30,7 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy:  #0c0c22; --navy2: #131330; --navy3: #1a1a40;
+      --navy:  #0a0a0c; --navy2: #121216; --navy3: #1b1b22;
       --light: #f5f0e8; --light2: #ede8df;
       --text:  #f2eee8; --textd: #18182e;
       --muted: #7a7596; --mutedd: #6b6878;
@@ -60,7 +60,7 @@
       border-bottom:1px solid transparent;
       transition:background .4s, backdrop-filter .4s, border-color .4s;
     }
-    nav.s { background:rgba(12,12,34,.9); backdrop-filter:blur(20px); border-color:var(--bord); }
+    nav.s { background:rgba(10,10,12,.9); backdrop-filter:blur(20px); border-color:var(--bord); }
     .logo { font-family:var(--fd); font-size:1.05rem; letter-spacing:.35em; text-transform:uppercase; text-decoration:none; color:var(--text); }
     .logo span { color:var(--gold); }
     .nav-links { display:flex; gap:2.5rem; list-style:none; }
@@ -79,8 +79,8 @@
       content:''; position:absolute; inset:0;
       background:
         repeating-radial-gradient(ellipse 130% 90% at 18% 58%, transparent 0, transparent 70px, rgba(255,255,255,.022) 71px, transparent 72px),
-        radial-gradient(ellipse 75% 85% at 15% 55%, #1e1050 0%, transparent 62%),
-        linear-gradient(155deg, #0d0d24 30%, #140e32 100%);
+        radial-gradient(ellipse 75% 85% at 15% 55%, rgba(255,182,92,0.08) 0%, transparent 62%),
+        linear-gradient(155deg, #0a0a0c 30%, #121216 100%);
     }
     .hero-left {
       position:relative; z-index:2;
@@ -225,7 +225,7 @@
     .extra-pr { font-family:var(--fd); font-size:1.7rem; font-weight:300; color:var(--gold); white-space:nowrap; }
 
     /* SPECIAL */
-    .special { text-align:center; background:linear-gradient(180deg,var(--navy) 0%,#150c2a 100%); border-top:1px solid var(--bord); }
+    .special { text-align:center; background:linear-gradient(180deg,var(--navy) 0%,#121216 100%); border-top:1px solid var(--bord); }
     .tags { display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; margin:2rem 0 2.8rem; }
     .tag { font-family:var(--fd); font-size:1.1rem; font-style:italic; color:var(--muted); padding:.5rem 1.4rem; border:1px solid var(--bord); border-radius:50px; transition:all .25s; cursor:default; }
     .tag:hover { color:var(--gold); border-color:var(--gold); }
@@ -533,7 +533,7 @@
       </ul>
     </div>
 
-    <div class="card" style="--accent:linear-gradient(90deg,#1d4ed8,transparent)">
+    <div class="card" style="--accent:linear-gradient(90deg,#ffa340,transparent)">
       <p class="card-cat">Producto</p>
       <p class="card-pr">$299</p>
       <p class="card-sub">por sesión</p>
